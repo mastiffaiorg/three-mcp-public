@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mcp_server:
+    build:
+      context: ./three-mcp
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Exposing port 8000 for SSE
+    # Environment variables for Synexa API key, if needed
+    environment:
+      - OPENAI_API_KEY=
+      - TIGRIS_ENDPOINT_URL=
+      - TIGRIS_ACCESS_KEY_ID=
+      - TIGRIS_SECRET_ACCESS_KEY=
+      - TIGRIS_BUCKET_NAME=
+      - SYNEXA_API_KEY=
+    volumes:
+      # Mount a local directory into the container to save generated images
+      - ~/generated_assets:/app/generated_assets
+    # If you change mcp.run() to use a transport like 'streamable-http',
+    # you'll want to map ports here. For example:
+    # ports:
+    #   - "8000:8000" 
